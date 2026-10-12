@@ -1,0 +1,67 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# .gitignore — files that are NOT part of the production application and must
+# never be committed (local state, generated output, secrets, OS/editor noise).
+# Note: .gitignore does not untrack files already in the index.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Dependencies (installed from the lockfile)
+node_modules/
+
+# Build output (produced by `npm run build`)
+dist/
+*.tsbuildinfo
+
+# Test + coverage output
+coverage/
+playwright-report/
+test-results/
+.vitest/
+blob-report/
+
+# Lint / bundler / tool caches
+.eslintcache
+.cache/
+.turbo/
+.vite/
+
+# Local environment and secrets (NEVER commit)
+.env
+.env.*
+!.env.example
+
+# Logs and crash dumps
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.pid
+*.seed
+
+# Local database / docker artifacts
+*.sqlite
+*.dump
+
+# Markdown is agent/handbook material, not part of the production application.
+# NOTE: this only ignores untracked .md files; already-committed ones stay tracked
+# until they are removed with `git rm --cached`.
+*.md
+*.mdc
+# Keep a human-facing README if you want one (uncomment):
+# README.md
+
+# Editor and IDE
+.vscode/
+.kilo/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# OS noise
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,11 @@
+# Owners (RULES, SUPPLY). Owners must have write access or GitHub ignores the entry.
+*                         @aminul-islam6911
+
+# Protected paths: require human review.
+/.github/workflows/       @aminul-islam6911
+/Dockerfile*              @aminul-islam6911
+/docker-compose*.yml      @aminul-islam6911
+/migrations/              @aminul-islam6911
+/.cursor/rules/           @aminul-islam6911
+/AGENTS.md                @aminul-islam6911
+/CODEOWNERS               @aminul-islam6911

@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: CodeToGather API
+  version: 0.0.0
+  description: |
+    Source of truth for the HTTP API (`API`). Versioned in the path (/v1/...).
+    Phase 0 exposes health, readiness, metrics, and a walking-skeleton ping.
+servers:
+  - url: /
+paths:
+  /healthz:
+    get:
+      operationId: getHealthz
+      summary: Liveness probe
+      responses:
+        "200":
+          description: Process is alive.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [ok]
+                required: [status]
+  /readyz:
+    get:
+      operationId: getReadyz
+      summary: Readiness probe (checks Postgres and Redis)
+      responses:
+        "200":
+          description: Dependencies reachable.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [ready]
+                required: [status]
+        "503":
+          description: One or more core dependencies are unavailable.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    enum: [unavailable]
+                  failed:
+                    type: array
+                    items:
+                      type: string
+                required: [status, failed]
+  /metrics:
+    get:
+      operationId: getMetrics
+      summary: Prometheus metrics
+      responses:
+        "200":
+          description: Prometheus text exposition format.
+          content:
+            text/plain:
+              schema:
+                type: string
+  /v1/ping:
+    get:
+      operationId: getPing
+      summary: Walking-skeleton endpoint (Phase 0)
+      responses:
+        "200":
+          description: Pong.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pong:
+                    type: boolean
+                required: [pong]
+components:
+  schemas:
+    Error:
+      type: object
+      description: Single error envelope. Never contains a stack trace.
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            requestId:
+              type: string
+          required: [code, message, requestId]
+      required: [error]

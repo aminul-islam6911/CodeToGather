@@ -1,0 +1,72 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# .dockerignore — keep the build context to the production application only.
+# Build inputs that MUST stay: package.json, package-lock.json, tsconfig.json,
+# tsconfig.build.json, src/  (everything below is excluded).
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Version control, CI config, and their metadata
+.git
+.gitignore
+.gitattributes
+.github
+CODEOWNERS
+
+# Editor / agent / tooling config
+.cursor
+.kilo
+.kilocode
+.vscode
+.idea
+.editorconfig
+.nvmrc
+
+# Dependencies and build output (rebuilt inside the image)
+node_modules
+dist
+*.tsbuildinfo
+
+# Test and coverage artifacts
+coverage
+playwright-report
+test-results
+.nyc_output
+jest
+tests
+
+# Lint / bundler / tool caches
+.eslintcache
+.cache
+.turbo
+.vite
+vitest.config.ts
+playwright.config.ts
+*.config.js
+
+# Dev-only tooling scripts (not needed to build or run)
+scripts
+
+# API spec (served/validated by tooling, not needed at runtime)
+openapi
+
+# Docs, planning, handbook, and agent instructions
+docs
+*.md
+README.md
+AGENTS.md
+START_HERE.md
+PRODUCTION_BASE_WEB_APP.md
+
+# Local environment, logs, and secrets
+.env
+.env.*
+*.log
+*.pid
+
+# Container definitions are not needed inside the build context
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Local database / dumps
+*.sqlite
+*.dump
