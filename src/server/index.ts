@@ -40,6 +40,12 @@ async function main(): Promise<void> {
     logger.warn({ err: error }, "redis unavailable; retrying in background");
   });
 
+  // Establish the connection before serving. The client is lazy and its offline
+  // queue is disabled, so without this the first rate-limited request races the
+  // connect attempt and fails. Errors are already logged by the handler above;
+  // rate limiting then fails closed until Redis recovers.
+  await redis.ping().catch(() => {});
+
   const app = await buildApp({
     env,
     logger,
